@@ -4,10 +4,7 @@ module HalfBox(
     width_i,
     depth_i,
     height_i,
-    wall_d,
-    cornerRadius_i = 0,
-    cornerRadius_o = 0,
-    cornerRadiusDisplacement = 0 )
+    wall_d )
 {
 // faces
     // bottom
