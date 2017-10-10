@@ -1,5 +1,5 @@
 // A standoff with a bore hole on one side, and drilled all the
-// way through
+// way through. The bore hole is on the bottom.
 
 module BoreStandoff(
         height,
