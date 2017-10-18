@@ -102,8 +102,7 @@ module HalfBox(
 
         // back-bottom-right
         translate( [ width_i, depth_i, 0 ])
-        rotate( a=-90, v=[1,0,0] )
-        color("red"){
+        rotate( a=-90, v=[1,0,0] ) {
             HalfBox_RoundedCorner( wall_d );
         }
     }
