@@ -14,11 +14,11 @@ module EbBottom(
 
             // cut out openings in walls
             // SD Card
-            translate( [ 100, boxDepth_i, standoffHeight ] )
+            translate( [ 100, boxDepth_i-wallThickness, standoffHeight ] )
             rotate( 180, [ 0, 0, 1 ])
             rotate( 90, [ 1, 0, 0 ])
-            translate( [ 31, -1 - 1.7 , 0 ]) {
-                cube( [ 11, 1, wallThickness ] );
+            translate( [ 31, -1  , 0 ]) {
+                cube( [ 13, 3, 3*wallThickness ] );
             }
         }
 

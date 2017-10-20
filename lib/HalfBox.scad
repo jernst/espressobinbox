@@ -1,5 +1,7 @@
 // Half a box, bottom/ceiling at the bottom, [0,0,0] just inside
 
+use <RoundedSquare.scad>
+
 module HalfBox(
     width_i,
     depth_i,
@@ -7,10 +9,31 @@ module HalfBox(
     wall_d )
 {
     union() {
+        translate( [ 0, 0, -wall_d ] ) {
+            linear_extrude( wall_d ) {
+                RoundedSquare( width_i, depth_i, wall_d );
+            }
+        }
+    }
+
+    difference() {
+        linear_extrude( height_i ) {
+            RoundedSquare( width_i, depth_i, wall_d );
+        }
+        linear_extrude( height_i ) {
+            translate( [ wall_d, wall_d, 0 ]) {
+                RoundedSquare( width_i-2*wall_d, depth_i-2*wall_d, wall_d );
+            }
+        }
+    }
+
+
+if( false ) {
+    union() {
 // faces
         // bottom
-        translate( [0,0,-wall_d] ) {
-            cube( [ width_i, depth_i, wall_d ]);
+        translate( [ -wall_d, -wall_d, -wall_d ] ) {
+            cube( [ width_i+2*wall_d, depth_i+2*wall_d, wall_d ]);
         }
 
         // front
@@ -32,7 +55,6 @@ module HalfBox(
         translate( [width_i,0,0] ) {
             cube( [ wall_d, depth_i, height_i ]);
         }
-
 // edges
         // front-left
         rotate( a=180, v=[0,0,1] ) {
@@ -106,6 +128,7 @@ module HalfBox(
             HalfBox_RoundedCorner( wall_d );
         }
     }
+}
 }
 
 module HalfBox_RoundedEdge(

@@ -12,31 +12,48 @@ use <lib/HalfBox.scad>
 
 $fn=20;
 
-boxWidth_i=120;
-boxDepth_i=72;
-boxHeight_i = 72;
 ebStandoffHeight = 7;
 diskStandoffHeight = 7;
+
+boxWidth_i=120;
+boxDepth_i=72;
 diskHeight = 15;
+ebHeightAboveBoard = 15;
+boxHeight_i = ebStandoffHeight + 1.7 + ebHeightAboveBoard + diskHeight;
 
-wallThickness = 2;
+wallThickness = .7;
 
-showFaces = 30;
+showFaces = false ; // 30;
+showBottom = true; // false;
+showTop    = false; // true;
 
-EbBottom(
-        boxWidth_i,
-        boxDepth_i,
-        ebStandoffHeight,
-        wallThickness );
-
-translate( [ 0, boxDepth_i, boxHeight_i*1.5 ] )
-rotate( 180, [ 1, 0, 0 ] ) {
-    EbTop(
+if( showBottom ) {
+    EbBottom(
             boxWidth_i,
             boxDepth_i,
-            diskStandoffHeight,
-            diskHeight,
+            ebStandoffHeight,
             wallThickness );
+}
+
+if( showTop ) {
+    if( showBottom ) {
+        translate( [ 0, boxDepth_i, boxHeight_i ] )
+        rotate( 180, [ 1, 0, 0 ] ) {
+            EbTop(
+                    boxWidth_i,
+                    boxDepth_i,
+                    diskStandoffHeight,
+                    diskHeight + ebHeightAboveBoard,
+                    wallThickness );
+        }
+    } else {
+        EbTop(
+                boxWidth_i,
+                boxDepth_i,
+                diskStandoffHeight,
+                diskHeight + ebHeightAboveBoard,
+                wallThickness );        
+    }
 }
 
 if( showFaces > 0 ) {
