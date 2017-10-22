@@ -1,7 +1,7 @@
 use <../lib/HalfBox.scad>
 use <DiskStandoff.scad>
 
-module EbTop(
+module EbDiskHalf(
         boxWidth_i,
         boxDepth_i,
         standoffHeight,
@@ -29,7 +29,13 @@ module EbTop(
             }
 
             // cut out openings in walls
-            
+
+
+            // Logo
+            translate( [ 10, 10, standoffHeight + diskHeight + 1.75 - 0.5 ])
+            linear_extrude( height=0.5 ) {
+                text( text="IndieBox Espresso", size=10, font="Liberation Sans" );
+            }
         }
         
         translate( [ 4, 3, 0 ] ) {

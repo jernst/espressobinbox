@@ -8,24 +8,24 @@ module EbFrontface() {
 
         // from left to right
         // USB
-        translate( [ 8, 0, 0 ]) {
-            cube( [ 6, 14, extrudeBy ] );
+        translate( [ 8, 0, -extrudeBy ]) {
+            cube( [ 6, 14, extrudeBy*2 ] );
         }
 
         // Ethernet
-        translate( [ 21, 0, 0 ]) {
-            cube( [ 17, 14, extrudeBy ] );
+        translate( [ 21, 0, -extrudeBy ]) {
+            cube( [ 17, 14, extrudeBy*2 ] );
         }
-        translate( [ 40, 0, 0 ]) {
-            cube( [ 17, 14, extrudeBy ] );
+        translate( [ 40, 0, -extrudeBy ]) {
+            cube( [ 17, 14, extrudeBy*2 ] );
         }
-        translate( [ 58, 0, 0 ]) {
-            cube( [ 17, 14, extrudeBy ] );
+        translate( [ 58, 0, -extrudeBy ]) {
+            cube( [ 17, 14, extrudeBy*2 ] );
         }
 
         // USB 3
-        translate( [ 85, 0, 0 ]) {
-            cube( [ 6, 14, extrudeBy ] );
+        translate( [ 85, 0, -extrudeBy ]) {
+            cube( [ 6, 14, extrudeBy*2 ] );
         }
     }
 }

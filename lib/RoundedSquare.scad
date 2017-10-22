@@ -1,27 +1,31 @@
+// these are outside dimensions
+
 module RoundedSquare(
-        width_i,
-        depth_i,
-        radius )
+        p_width,
+        p_height,
+        p_radius )
 {
     union () {
-        translate( [ -radius, 0 ] ) {
-            square( [ width_i+2*radius, depth_i ] );
+        translate( [ 0, p_radius ] ) {
+            square( [ p_width, p_height - 2*p_radius ] );
         }
 
-        translate( [ 0, -radius ] ) {
-            square( [ width_i, depth_i+2*radius ] );
+        translate( [ p_radius, 0 ] ) {
+            square( [ p_width - 2*p_radius, p_height ] );
         }
 
-        circle( r=radius );
+        translate( [ p_radius, p_radius ] ) {
+            circle( r = p_radius );
+        }
 
-        translate( [ width_i, 0 ] ) {
-            circle( r=radius );
+        translate( [ p_width - p_radius, p_radius ] ) {
+            circle( r = p_radius );
         }
-        translate( [ 0, depth_i ] ) {
-            circle( r=radius );
+        translate( [ p_radius, p_height - p_radius ] ) {
+            circle( r = p_radius );
         }
-        translate( [ width_i, depth_i ] ) {
-            circle( r=radius );
+        translate( [ p_width - p_radius, p_height - p_radius ] ) {
+            circle( r = p_radius );
         }
     }
 }

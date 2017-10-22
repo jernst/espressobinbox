@@ -3,150 +3,39 @@
 use <RoundedSquare.scad>
 
 module HalfBox(
-    width_i,
-    depth_i,
-    height_i,
-    wall_d )
+    p_width_i,
+    p_depth_i,
+    p_height_i,
+    p_radius_i,
+    p_wall_t )
 {
     union() {
-        translate( [ 0, 0, -wall_d ] ) {
-            linear_extrude( wall_d ) {
-                RoundedSquare( width_i, depth_i, wall_d );
+        // bottom plate
+        translate( [ -p_wall_t, -p_wall_t, -p_wall_t ] ) {
+            linear_extrude( p_wall_t ) {
+                RoundedSquare(
+                        p_width  = p_width_i + 2*p_wall_t,
+                        p_height = p_depth_i + 2*p_wall_t,
+                        p_radius = p_radius_i + p_wall_t );
+            }
+        }
+
+        // walls -- overlapping the bottom plate
+        translate( [ -p_wall_t, -p_wall_t, -p_wall_t ] ) {
+            linear_extrude( p_height_i + p_wall_t ) {
+                difference() {
+                    RoundedSquare(
+                            p_width  = p_width_i + 2*p_wall_t,
+                            p_height = p_depth_i + 2*p_wall_t,
+                            p_radius = p_radius_i + p_wall_t );
+                    translate( [ p_wall_t, p_wall_t ] ) {
+                        RoundedSquare(
+                                p_width  = p_width_i,
+                                p_height = p_depth_i,
+                                p_radius = p_radius_i );
+                    }
+                }
             }
         }
     }
-
-    difference() {
-        linear_extrude( height_i ) {
-            RoundedSquare( width_i, depth_i, wall_d );
-        }
-        linear_extrude( height_i ) {
-            translate( [ wall_d, wall_d, 0 ]) {
-                RoundedSquare( width_i-2*wall_d, depth_i-2*wall_d, wall_d );
-            }
-        }
-    }
-
-
-if( false ) {
-    union() {
-// faces
-        // bottom
-        translate( [ -wall_d, -wall_d, -wall_d ] ) {
-            cube( [ width_i+2*wall_d, depth_i+2*wall_d, wall_d ]);
-        }
-
-        // front
-        translate( [0,-wall_d,0] ) {
-            cube( [ width_i, wall_d, height_i ]);
-        }
-
-        // back
-        translate( [0,depth_i,0] ) {
-            cube( [ width_i, wall_d, height_i ]);
-        }
-        
-        // left
-        translate( [-wall_d,0,0] ) {
-            cube( [ wall_d, depth_i, height_i ]);
-        }
-        
-        // right
-        translate( [width_i,0,0] ) {
-            cube( [ wall_d, depth_i, height_i ]);
-        }
-// edges
-        // front-left
-        rotate( a=180, v=[0,0,1] ) {
-            HalfBox_RoundedEdge( height_i, wall_d );
-        }
-
-        // back-left
-        translate( [ 0, depth_i, 0 ])
-        rotate( a=90, v=[0,0,1] ) {
-            HalfBox_RoundedEdge( height_i, wall_d );
-        }
-            
-        // front-right
-        translate( [ width_i, 0, 0 ])
-        rotate( a=-90, v=[0,0,1] ) {
-            HalfBox_RoundedEdge( height_i, wall_d );
-        }
-        
-        // back-right
-        translate( [ width_i, depth_i, 0 ]) {
-            HalfBox_RoundedEdge( height_i, wall_d );
-        }
-        
-        // front-bottom
-        rotate( a=-90, v=[1,0,0] )
-        rotate( a=90, v=[0,1,0] ) {
-            HalfBox_RoundedEdge( width_i, wall_d );
-        }
-        
-        // back-bottom
-        translate( [ 0, depth_i, 0 ])
-        rotate( a=90, v=[0,1,0] ) {
-            HalfBox_RoundedEdge( width_i, wall_d );
-        }
-
-        // left-bottom
-        rotate( a=90, v=[0,1,0] )
-        rotate( a=-90, v=[1,0,0] ) {    
-            HalfBox_RoundedEdge( depth_i, wall_d );
-        }
-           
-        // right-bottom
-        translate( [ width_i, 0, 0 ])
-        rotate( a=-90, v=[1,0,0] ) {    
-            HalfBox_RoundedEdge( depth_i, wall_d );
-        }
-
-// corners
-        // front-bottom-left
-        rotate( a=180, v=[0,1,0] )
-        rotate( a=90, v=[1,0,0] ) {
-            HalfBox_RoundedCorner( wall_d );
-        }
-
-        // back-bottom-left
-        translate( [ 0, depth_i, 0 ])
-        rotate( a=180, v=[0,1,0] ) {
-            HalfBox_RoundedCorner( wall_d );
-        }
-
-        // front-bottom-right
-        translate( [ width_i, 0, 0 ])
-        rotate( a=90, v=[0,1,0] )
-        rotate( a=90, v=[1,0,0] ) {
-            HalfBox_RoundedCorner( wall_d );
-        }
-
-        // back-bottom-right
-        translate( [ width_i, depth_i, 0 ])
-        rotate( a=-90, v=[1,0,0] ) {
-            HalfBox_RoundedCorner( wall_d );
-        }
-    }
-}
-}
-
-module HalfBox_RoundedEdge(
-        length,
-        radius )
-{
-	intersection() {
-		cube( [ radius, radius, length ] );
-		cylinder( length, radius, radius );
-	}
-	
-}
-
-module HalfBox_RoundedCorner(
-        radius )
-{
-	intersection() {
-    	cube( [ radius, radius, radius ]);
-	    sphere( radius );
-	}
 }
