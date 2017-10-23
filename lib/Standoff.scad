@@ -1,4 +1,4 @@
-// A standoff with a screw hole on one side
+// A standoff with a screw hole
 
 module Standoff(
         height,
