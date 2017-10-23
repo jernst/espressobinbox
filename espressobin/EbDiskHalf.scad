@@ -1,54 +1,72 @@
 use <../lib/HalfBox.scad>
-use <DiskStandoff.scad>
+use <../lib/Standoff.scad>
 
-module EbDiskHalf(
-        boxWidth_i,
-        boxDepth_i,
-        standoffHeight,
-        diskHeight,
-        wallThickness )
+module EbDiskHalf()
 {
-    standoffRadius = 3;
+    diskStandoffs = [
+        [ $diskHole1_x,                 $diskHole1_y ],
+        [ $diskHole1_x + $diskHoles_dx, $diskHole1_y ],
+        [ $diskHole1_x,                 $diskHole1_y + $diskHoles_dy ],
+        [ $diskHole1_x + $diskHoles_dx, $diskHole1_y + $diskHoles_dy ]
+    ];
+
+    littleStandoffDz = $box_hi - $littleStandoff_h;
+
+    littleStandoffs = [
+        [ $standoff_next_d + $bigStandoff_r, $standoff_next_d + $bigStandoff_r, littleStandoffDz ],
+        [ $standoff_next_d + $bigStandoff_r, $box_di - ( $standoff_next_d + $bigStandoff_r ), littleStandoffDz ],
+        [ $box_wi - ( $standoff_next_d + $bigStandoff_r ), $standoff_next_d + $bigStandoff_r, littleStandoffDz ],
+        [ $box_wi - ( $standoff_next_d + $bigStandoff_r ), $box_di - ( $standoff_next_d + $bigStandoff_r ), littleStandoffDz ],
+        [ $standoff_next_d + $bigStandoff_r, 2*$standoff_next_d + 3*$bigStandoff_r, littleStandoffDz ],
+        [ $standoff_next_d + $bigStandoff_r, $box_di - ( 2*$standoff_next_d + 3*$bigStandoff_r ), littleStandoffDz ],
+        [ $box_wi - ( $standoff_next_d + $bigStandoff_r ), 2*$standoff_next_d + 3*$bigStandoff_r, littleStandoffDz ],
+        [ $box_wi - ( $standoff_next_d + $bigStandoff_r ), $box_di - ( 2*$standoff_next_d + 3*$bigStandoff_r ), littleStandoffDz ]
+    ];
 
     union() {
         difference() {
-            HalfBox( boxWidth_i, boxDepth_i, standoffHeight+diskHeight, wallThickness );
+            translate( [ 0, 0, $box_hi ])
+            mirror( [ 0, 0, 1 ] ) {
+                HalfBox(
+                        p_width_i  = $box_wi,
+                        p_depth_i  = $box_di,
+                        p_height_i = $box_hi - $boardTop_z,
+                        p_radius_i = $box_ri,
+                        p_wall_t   = $wall_t );
+            }
 
             // make room for the DiskStandoffs that have through-holes
-            translate( [ 4, 3, -wallThickness ] ) {
-                cylinder( standoffHeight+wallThickness, standoffRadius, standoffRadius );
-            }
-            translate( [ 4+94, 3, -wallThickness ] ) {
-                cylinder( standoffHeight+wallThickness, standoffRadius, standoffRadius );
-            }
-            translate( [ 4, 3+66, -wallThickness ] ) {
-                cylinder( standoffHeight+wallThickness, standoffRadius, standoffRadius );
-            }
-            translate( [ 4+94, 3+66, -wallThickness ] ) {
-                cylinder( standoffHeight+wallThickness, standoffRadius, standoffRadius );
+            translate( [ 0, 0, $box_hi-$wall_t ] )
+            linear_extrude( 3*$wall_t ) {
+                for( p = diskStandoffs ) {
+                    translate( p ) {
+                        circle( ( $diskStandoff_r + $m3ThroughHole_r ) / 2 );
+                    }
+                }
             }
 
             // cut out openings in walls
 
 
-            // Logo
-            translate( [ 10, 10, standoffHeight + diskHeight + 1.75 - 0.5 ])
-            linear_extrude( height=0.5 ) {
-                text( text="IndieBox Espresso", size=10, font="Liberation Sans" );
-            }
         }
         
-        translate( [ 4, 3, 0 ] ) {
-            DiskStandoff( standoffHeight, standoffRadius );
+        for( p = diskStandoffs ) {
+            translate( [ p[0], p[1], $box_hi + $wall_t - $diskStandoff_h ] ) {
+                Standoff(
+                        height     = $diskStandoff_h,
+                        radius     = $diskStandoff_r,
+                        holeDepth  = $diskStandoff_h,
+                        holeRadius = $m3ThroughHole_r );
+            }
         }
-        translate( [ 4+94, 3, 0 ] ) {
-            DiskStandoff( standoffHeight, standoffRadius );
-        }
-        translate( [ 4, 3+66, 0 ] ) {
-            DiskStandoff( standoffHeight, standoffRadius );
-        }
-        translate( [ 4+94, 3+66, 0 ] ) {
-            DiskStandoff( standoffHeight, standoffRadius );
+        for( p = littleStandoffs ) {
+            translate( p ) {
+                Standoff(
+                        height     = $littleStandoff_h,
+                        radius     = $littleStandoff_r,
+                        holeDepth  = $littleStandoff_h,
+                        holeRadius = $m3ThroughHole_r );
+            }
         }
     }
 }

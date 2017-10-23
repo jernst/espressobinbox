@@ -1,9 +1,15 @@
-use <EbBoardStandoff.scad>
 use <../lib/FanHolder.scad>
 use <../lib/HalfBox.scad>
+use <../lib/Standoff.scad>
 
 module EbBoardHalf()
 {
+    boardStandoffs = [
+        [ $board_wall_d4 + $boardEdge_hole_d, $board_wall_d3 + $boardEdge_hole_d, 0 ],
+        [ $board_wall_d4 + $board_w - $boardEdge_hole_d, $board_wall_d3 + $boardEdge_hole_d, 0 ],
+        [ $board_wall_d4 + $boardEdge_hole_d, $board_wall_d3 + $board_d - $boardEdge_hole_d, 0 ],
+        [ $board_wall_d4 + $board_w - $boardEdge_hole_d, $board_wall_d3 + $board_d - $boardEdge_hole_d, 0 ]
+    ];
     littleStandoffs = [
         [ $standoff_next_d + $bigStandoff_r, $standoff_next_d + $bigStandoff_r ],
         [ $standoff_next_d + $bigStandoff_r, $box_di - ( $standoff_next_d + $bigStandoff_r ) ],
@@ -27,7 +33,6 @@ module EbBoardHalf()
                     p_radius_i = $box_ri,
                     p_wall_t   = $wall_t );
 
-
             
             translate( [ $board_wall_d4, $box_di + 2* $wall_t, $boardTop_z ] )
             rotate( 90, [ 1, 0, 0 ])
@@ -40,18 +45,14 @@ module EbBoardHalf()
         }
 
         // standoffs for the board
-
-        translate( [ $board_wall_d4 + $boardEdge_hole_d, $board_wall_d3 + $boardEdge_hole_d, 0 ] ) {
-            EbBoardStandoff();
-        }
-        translate( [ $board_wall_d4 + $board_w - $boardEdge_hole_d, $board_wall_d3 + $boardEdge_hole_d, 0 ] ) {
-            EbBoardStandoff();
-        }
-        translate( [ $board_wall_d4 + $boardEdge_hole_d, $board_wall_d3 + $board_d - $boardEdge_hole_d, 0 ] ) {
-            EbBoardStandoff();
-        }
-        translate( [ $board_wall_d4 + $board_w - $boardEdge_hole_d, $board_wall_d3 + $board_d - $boardEdge_hole_d, 0 ] ) {
-            EbBoardStandoff();
+        for( p = boardStandoffs ) {
+            translate( p ) {
+                Standoff(
+                        height     = $boardStandoff_h,
+                        radius     = $boardStandoff_r,
+                        holeDepth  = $boardStandoff_h,
+                        holeRadius = $m3CutHole_r );
+            }
         }
 
         // fan holder
