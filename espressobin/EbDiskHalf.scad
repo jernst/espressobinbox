@@ -1,5 +1,7 @@
+use <../lib/FanHolder.scad>
 use <../lib/HalfBox.scad>
 use <../lib/Standoff.scad>
+use <../lib/VentilationHoles.scad>
 
 module EbDiskHalf()
 {
@@ -12,11 +14,13 @@ module EbDiskHalf()
 
     littleStandoffDz = $box_hi - $littleStandoff_h;
 
-    littleStandoffs = [
+    littleStandoffsNotThrough = [
         [ $standoff_next_d + $bigStandoff_r, $standoff_next_d + $bigStandoff_r, littleStandoffDz ],
         [ $standoff_next_d + $bigStandoff_r, $box_di - ( $standoff_next_d + $bigStandoff_r ), littleStandoffDz ],
         [ $box_wi - ( $standoff_next_d + $bigStandoff_r ), $standoff_next_d + $bigStandoff_r, littleStandoffDz ],
-        [ $box_wi - ( $standoff_next_d + $bigStandoff_r ), $box_di - ( $standoff_next_d + $bigStandoff_r ), littleStandoffDz ],
+        [ $box_wi - ( $standoff_next_d + $bigStandoff_r ), $box_di - ( $standoff_next_d + $bigStandoff_r ), littleStandoffDz ]
+    ];
+    littleStandoffsThrough = [
         [ $standoff_next_d + $bigStandoff_r, 2*$standoff_next_d + 3*$bigStandoff_r, littleStandoffDz ],
         [ $standoff_next_d + $bigStandoff_r, $box_di - ( 2*$standoff_next_d + 3*$bigStandoff_r ), littleStandoffDz ],
         [ $box_wi - ( $standoff_next_d + $bigStandoff_r ), 2*$standoff_next_d + 3*$bigStandoff_r, littleStandoffDz ],
@@ -43,13 +47,59 @@ module EbDiskHalf()
                         circle( ( $diskStandoff_r + $m3ThroughHole_r ) / 2 );
                     }
                 }
+                for( p = littleStandoffsThrough ) {
+                    translate( p ) {
+                        circle( ( $littleStandoff_r + $m3ThroughHole_r ) / 2 );
+                    }
+                }
             }
 
-            // cut out openings in walls
+            // cut out openings in walls for ports
 
+
+            // ventilation -- fan side
+
+            translate( [ $box_wi - $wall_t,  $box_di/2 - $fan_l/2, $box_hi / 2 - $fan_h / 2 ] )
+            rotate( 90, [ 0, 0, 1 ] )
+            rotate( 90, [ 1, 0, 0 ] )
+            linear_extrude( 3 * $wall_t ) {
+                VentilationHoles(
+                        partWidth   = $fan_l,
+                        partHeight  = $fan_l,
+                        nrows       = 3,
+                        ncols       = 10,
+                        holepercent = .6 );
+            }
+
+            // ventilation -- opposite of fan
+
+            translate( [ -2 * $wall_t, ( $box_di - 2*$fan_l ) / 3, $box_hi / 2 - $fan_h / 2 ] )
+            rotate( 90, [ 0, 0, 1 ] )
+            rotate( 90, [ 1, 0, 0 ] )
+            linear_extrude( 3 * $wall_t ) {
+                VentilationHoles(
+                        partWidth   = $fan_l,
+                        partHeight  = $fan_l,
+                        nrows       = 3,
+                        ncols       = 10,
+                        holepercent = .6 );
+            }
+
+            translate( [ -2 * $wall_t,  2*$box_di/3 - $fan_l/3, $box_hi / 2 - $fan_h / 2 ] )
+            rotate( 90, [ 0, 0, 1 ] )
+            rotate( 90, [ 1, 0, 0 ] )
+            linear_extrude( 3 * $wall_t ) {
+                VentilationHoles(
+                        partWidth   = $fan_l,
+                        partHeight  = $fan_l,
+                        nrows       = 3,
+                        ncols       = 10,
+                        holepercent = .6 );
+            }
 
         }
-        
+
+        // standoffs
         for( p = diskStandoffs ) {
             translate( [ p[0], p[1], $box_hi + $wall_t - $diskStandoff_h ] ) {
                 Standoff(
@@ -59,7 +109,7 @@ module EbDiskHalf()
                         holeRadius = $m3ThroughHole_r );
             }
         }
-        for( p = littleStandoffs ) {
+        for( p = littleStandoffsNotThrough ) {
             translate( p ) {
                 Standoff(
                         height     = $littleStandoff_h,
@@ -67,6 +117,28 @@ module EbDiskHalf()
                         holeDepth  = $littleStandoff_h,
                         holeRadius = $m3ThroughHole_r );
             }
+        }
+        for( p = littleStandoffsThrough ) {
+            translate( p ) {
+                Standoff(
+                        height     = $littleStandoff_h + $wall_t,
+                        radius     = $littleStandoff_r,
+                        holeDepth  = $littleStandoff_h,
+                        holeRadius = $m3ThroughHole_r );
+            }
+        }
+
+        // fan holder
+
+        translate( [ $box_wi - $fanHolder_t - $independent_d , $box_di/2 + $fan_l/2, $box_hi ])
+        rotate( 180, [ 1, 0, 0 ] )
+        rotate( 90, [ 0, 0, 1 ] ) {
+            FanHolder(
+                    fanDx     = $fan_l,
+                    fanDy     = $fan_w,
+                    holder_h  = $box_hi / 2 - $fan_h / 2 - $slidingFit_d + $fan_h / 4,
+                    offset_z  = $box_hi / 2 - $fan_h / 2 - $slidingFit_d,
+                    thickness = $fanHolder_t );
         }
     }
 }

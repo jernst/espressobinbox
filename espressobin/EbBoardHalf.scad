@@ -33,7 +33,6 @@ module EbBoardHalf()
                     p_radius_i = $box_ri,
                     p_wall_t   = $wall_t );
 
-            
             translate( [ $board_wall_d4, $box_di + 2* $wall_t, $boardTop_z ] )
             rotate( 90, [ 1, 0, 0 ])
             linear_extrude( 3*$wall_t ) {
@@ -55,13 +54,15 @@ module EbBoardHalf()
             }
         }
 
-        // fan holder
-        translate( [ $box_wi, $box_di/2 - $fan_l/2, 0 ])
+        // fan holder, board half
+        translate( [ $box_wi - $fanHolder_t - $independent_d , $box_di/2 - $fan_l/2, 0 ])
         rotate( 90, [ 0, 0, 1 ] ) {
             FanHolder(
-                    fanDx = $fan_l,
-                    fanDy = $fan_w,
-                    fanDz = $fan_h );
+                    fanDx     = $fan_l,
+                    fanDy     = $fan_w,
+                    holder_h  = $box_hi / 2 - $fan_h / 2 - $slidingFit_d + $fan_h / 4,
+                    offset_z  = $box_hi / 2 - $fan_h / 2 - $slidingFit_d,
+                    thickness = $fanHolder_t );
         }
 
         // other standoffs

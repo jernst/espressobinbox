@@ -1,25 +1,35 @@
-// Can hold a computer fan in space [0, 0, 0] to [fanDx, fanDy, fanDz],
-// where a wall with air slots is assumed to be in the yz-plane
-// so a 25x25x10 fan would be FanHolder( 25, 10, 25 )
-// Par thickness is the thickness of the holder being generated,
-// while width is how much of the fan's sides are being covered
+// Holds a computer fan, enclosed at bottom, and partially left or right,
+// against displacement in all directions except up. The air flows in
+// y direction.
+// The fan will be a [ 0, 0, offset_z ] to [ fanDx, fanDy, offset_z + fanDz ]
+// So holding elements will extend into negative x and y territories, but not negative z
+//
+// Fan dimensions:    fanDx, and fanDy (e.g. 25mm and 10mm )
+//                    there is no fanDz, as it does not reach all the way to the top
+// Holder dimensions: holder_h : size of the part from the bottom to the top
+//                    offset_z : bottom of the fan, with respect to the bottom of the part
+//                               (raises the fan from the floor)
+//                    width:     distance that the holding elements reach around the fan from the corner
+//                    thickness: thickness of the structures being created
 
 module FanHolder(
         fanDx,
         fanDy,
-        fanDz,
-        thickness = 1.5,
-        width     = 2 )
+        holder_h,
+        offset_z,
+        width     = 2,
+        thickness = 1.5 )
 {
     difference() {
-        union() {
-            translate( [ -thickness, fanDy - width, 0 ] ) {
-                cube( size=[ width + thickness, width + thickness, fanDz ] );
-            }
-            translate( [ fanDx - width, fanDy - width, 0 ] ) {
-                cube( size=[ width + thickness, width + thickness, fanDz ] );
-            }
+        translate( [ -$slidingFit_d - thickness, -$slidingFit_d - thickness, 0 ] ) {
+            cube( size=[ fanDx + 2 * ( $slidingFit_d + thickness ), fanDy + 2 * ( $slidingFit_d + thickness ), holder_h ] );
         }
-        cube( size=[ fanDx, fanDy, fanDz ] );
+        translate( [ -$slidingFit_d, -$slidingFit_d, offset_z ] ) {
+            cube( size=[ fanDx + 2*$slidingFit_d, fanDy + 2*$slidingFit_d, holder_h ] );
+        }
+        translate( [ width, -2*thickness, offset_z ] ) {
+            cube( size=[ fanDx - 2*width, fanDy + 4*thickness, holder_h ] );
+        }
     }
 }
+

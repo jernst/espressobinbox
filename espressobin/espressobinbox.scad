@@ -6,9 +6,10 @@ use <EbFrontface.scad>
 
 // what to show
 
-showFaces     = 40; // that's the distance from the box, -1 means "don't show"
+showFaces     = -1; // 40; // that's the distance from the box, -1 means "don't show"
 showBoardHalf = false;
 showDiskHalf  = 50; // that's the distance the top half is raised, -1 means "don't show"
+showFan       = 50;
 
 // xxx_l:      length of xxx
 // xxx_li:     length of xxx on the inside
@@ -77,6 +78,8 @@ $board_wall_d4    = max( 2*$bigStandoff_r, 2*$littleStandoff_r ) + 2 * $standoff
 
 $diskHole1_x      = 15;                         // x coordinate of the bottom-left disk hole
 
+$fanHolder_t      = 1.5;                        // thickness of the braces that constitute the fan holder
+
 $fn=20;
 
 // derived values (cannot change)
@@ -110,10 +113,15 @@ if( showFaces > 0 ) {
     rotate( 90, [ 1, 0, 0 ]) {
         EbFrontface();
     }
-
     translate( [ $box_wi - $board_wall_d2, $box_di + $wall_t + showFaces, $boardTop_z ])
     rotate( 180, [ 0, 0, 1 ])
     rotate( 90, [ 1, 0, 0 ]) {
         EbBackface();
+    }
+}
+
+if( showFan > 0 ) {
+    translate( [ $box_wi + $wall_t + showFan, $box_di / 2 - $fan_l / 2, $box_hi/2 - $fan_h/2 ] ) {
+        cube( [ $fan_w, $fan_l, $fan_h ]);
     }
 }
