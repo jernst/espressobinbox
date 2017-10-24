@@ -2,6 +2,8 @@ use <../lib/FanHolder.scad>
 use <../lib/HalfBox.scad>
 use <../lib/Standoff.scad>
 use <../lib/VentilationHoles.scad>
+use <EbFrontface.scad>
+use <EbBackface.scad>
 
 module EbDiskHalf()
 {
@@ -26,6 +28,7 @@ module EbDiskHalf()
         [ $box_wi - ( $standoff_next_d + $bigStandoff_r ), 2*$standoff_next_d + 3*$bigStandoff_r, littleStandoffDz ],
         [ $box_wi - ( $standoff_next_d + $bigStandoff_r ), $box_di - ( 2*$standoff_next_d + 3*$bigStandoff_r ), littleStandoffDz ]
     ];
+
 
     union() {
         difference() {
@@ -55,7 +58,20 @@ module EbDiskHalf()
             }
 
             // cut out openings in walls for ports
+            translate( [ $board_wall_d4, $wall_t, $boardTop_z ])
+            rotate( 90, [ 1, 0, 0 ]) {
+                linear_extrude( 3*$wall_t ) {
+                    EbFrontface();
+                }
+            }
 
+            translate( [ $box_wi - $board_wall_d2, $box_di - $wall_t, $boardTop_z ])
+            rotate( 180, [ 0, 0, 1 ])
+            rotate( 90, [ 1, 0, 0 ]) {
+                linear_extrude( 3*$wall_t ) {
+                    EbBackface();
+                }
+            }
 
             // ventilation -- fan side
 

@@ -6,10 +6,10 @@ use <EbFrontface.scad>
 
 // what to show
 
-showFaces     = -1; // 40; // that's the distance from the box, -1 means "don't show"
-showBoardHalf = false;
+showFaces     = -1; // that's the distance from the box, -1 means "don't show"
+showBoardHalf = true;
 showDiskHalf  = 50; // that's the distance the top half is raised, -1 means "don't show"
-showFan       = 50;
+showFan       = -1;
 
 // xxx_l:      length of xxx
 // xxx_li:     length of xxx on the inside
@@ -41,7 +41,7 @@ $fan_w            = 10;       // fan
 $fan_h            = $fan_l;   // fan
 
 $sdCardCutout_w   = 11+2;     // width of the cutout for the SDCard
-$sdCardCutout_h   = 2+2;      // height of the cutout for the SDCard
+$sdCardCutout_h   = 2+1;      // height of the cutout for the SDCard
 
 $powerCutout_w    = 9+2;      // width of the cutout for the power connector
 $powerCutout_h    = 11+1;     // height of the cutout for the power connector
@@ -108,19 +108,23 @@ if( showDiskHalf >=0 ) {
     }
 }
 
-if( showFaces > 0 ) {
+if( showFaces >= 0 ) {
     translate( [ $board_wall_d4, -showFaces, $boardTop_z ])
     rotate( 90, [ 1, 0, 0 ]) {
-        EbFrontface();
+        linear_extrude( 5 ) {
+            EbFrontface();
+        }
     }
     translate( [ $box_wi - $board_wall_d2, $box_di + $wall_t + showFaces, $boardTop_z ])
     rotate( 180, [ 0, 0, 1 ])
     rotate( 90, [ 1, 0, 0 ]) {
-        EbBackface();
+        linear_extrude( 5 ) {
+            EbBackface();
+        }
     }
 }
 
-if( showFan > 0 ) {
+if( showFan >= 0 ) {
     translate( [ $box_wi + $wall_t + showFan, $box_di / 2 - $fan_l / 2, $box_hi/2 - $fan_h/2 ] ) {
         cube( [ $fan_w, $fan_l, $fan_h ]);
     }

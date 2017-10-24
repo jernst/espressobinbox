@@ -40,6 +40,7 @@ module EbBoardHalf()
                 translate( [ $board_sdcard_dy - $sdCardCutout_w/2, - $board_t - $sdCardCutout_h ]) {
                     square( [ $sdCardCutout_w, $sdCardCutout_h + $board_t] ); // cannot close above
                 }
+
             }
         }
 
