@@ -31,7 +31,7 @@ $board_t          =   1.8;    // EspressoBIN board thickness (board only, not co
 $board_power_dy   =   3.25;   // how far the power connector sticks out from the edge of the board
 $board_ether_dy   =   7.7;    // how far the Ethernet/USB connectors stick out from the edge of the board
 $boardEdge_hole_d =   3;      // distance between mounting holes and edge of board, all directions
-$board_sdcard_dy  =  64;      // distance from start of board to location of SD card cutout center, along Y
+$board_sdcard_dy  =  63;      // distance from start of board to location of SD card cutout center, along Y
 
 $diskHoles_dx     =  77;      // distance between the screw holes on the disk along X
 $diskHoles_dy     =  62;      // distance between the screw holes on the disk along Y
