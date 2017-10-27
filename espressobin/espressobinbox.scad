@@ -47,8 +47,7 @@ $powerCutout_w    = 9+2;      // width of the cutout for the power connector
 $powerCutout_h    = 11+1;     // height of the cutout for the power connector
 
 $m3ThroughHole_r  = 3.6/2;    // hole radius to fit M3 screws through
-$m3CutHole_r      = 3/2*0.8;  // radius of hole into which self-cutting M3 scews cut into
-                              // 0.8 comes from http://www.stanleyengineeredfastening.com/sites/www.emhartamericas.com/files/downloads/Threaded_Fasteners_for_Plastics_EN.pdf
+$m3CutHole_r      = 2.7;      // radius of hole into which self-cutting M3 scews cut into --empirically
 
 // key parameters (we can change those)
 
