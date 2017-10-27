@@ -71,7 +71,7 @@ $diskStandoff_h   = $disk_wall_dz;              // height of the disk standoffs
 $standoff_next_d  = $independent_d;             // distance between a standoff and the next part
 
 $gpio_standoff_d  = 3;                          // distance between the GPIO pins and the next standoff
-$board_wall_d1    = $board_power_dy - $wall_t;  // distance between board and inside of wall on the sdcard side
+$board_wall_d1    = $slidingFit_d;              // distance between board and inside of wall on the sdcard side
 $board_wall_d2    = 40;                         // distance between board and wall on the fan side
 $board_wall_d3    = $board_ether_dy - $wall_t;  // distance between board and inside of wall on the Ethernet/USB side
 $board_wall_d4    = max( 2*$bigStandoff_r, 2*$littleStandoff_r ) + $standoff_next_d + $gpio_standoff_d;
