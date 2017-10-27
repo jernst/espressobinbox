@@ -53,5 +53,3 @@ module VentilationHoles(
         }
     }
 }
-
-VentilationHoles( 100, 100, 3, 5 );
