@@ -82,6 +82,9 @@ $diskHole1_y      =  5;                         // y coordinate of the bottom-le
 
 $fanHolder_t      = 1.5;                        // thickness of the braces that constitute the fan holder
 
+$ventilation_w    = $fan_l;                     // width of the ventilation holes
+$ventilation_h    = $fan_l - 2;                 // height of the ventilation holes
+
 $fn=20;
 
 // derived values (cannot change)

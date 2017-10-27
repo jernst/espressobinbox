@@ -75,13 +75,13 @@ module EbDiskHalf()
 
             // ventilation -- fan side
 
-            translate( [ $box_wi - $wall_t,  $box_di/2 - $fan_l/2, $box_hi / 2 - $fan_h / 2 ] )
+            translate( [ $box_wi - $wall_t,  $box_di/2 - $ventilation_w/2, $box_hi / 2 - $ventilation_h / 2 ] )
             rotate( 90, [ 0, 0, 1 ] )
             rotate( 90, [ 1, 0, 0 ] )
             linear_extrude( 3 * $wall_t ) {
                 VentilationHoles(
-                        partWidth   = $fan_l,
-                        partHeight  = $fan_l,
+                        partWidth   = $ventilation_w,
+                        partHeight  = $ventilation_h,
                         nrows       = 3,
                         ncols       = 10,
                         holepercent = .6 );
@@ -89,25 +89,25 @@ module EbDiskHalf()
 
             // ventilation -- opposite of fan
 
-            translate( [ -2 * $wall_t, ( $box_di - 2*$fan_l ) / 3, $box_hi / 2 - $fan_h / 2 ] )
+            translate( [ -2 * $wall_t, ( $box_di - 2*$ventilation_w ) / 3, $box_hi / 2 - $ventilation_h / 2 ] )
             rotate( 90, [ 0, 0, 1 ] )
             rotate( 90, [ 1, 0, 0 ] )
             linear_extrude( 3 * $wall_t ) {
                 VentilationHoles(
-                        partWidth   = $fan_l,
-                        partHeight  = $fan_l,
+                        partWidth   = $ventilation_w,
+                        partHeight  = $ventilation_h,
                         nrows       = 3,
                         ncols       = 10,
                         holepercent = .6 );
             }
 
-            translate( [ -2 * $wall_t,  2*$box_di/3 - $fan_l/3, $box_hi / 2 - $fan_h / 2 ] )
+            translate( [ -2 * $wall_t,  2*$box_di/3 - $ventilation_w/3, $box_hi / 2 - $ventilation_h / 2 ] )
             rotate( 90, [ 0, 0, 1 ] )
             rotate( 90, [ 1, 0, 0 ] )
             linear_extrude( 3 * $wall_t ) {
                 VentilationHoles(
-                        partWidth   = $fan_l,
-                        partHeight  = $fan_l,
+                        partWidth   = $ventilation_w,
+                        partHeight  = $ventilation_h,
                         nrows       = 3,
                         ncols       = 10,
                         holepercent = .6 );
