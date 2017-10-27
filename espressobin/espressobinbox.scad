@@ -77,7 +77,7 @@ $board_wall_d3    = $board_ether_dy - $wall_t;  // distance between board and in
 $board_wall_d4    = max( 2*$bigStandoff_r, 2*$littleStandoff_r ) + $standoff_next_d + $gpio_standoff_d;
                                                 // distance between board and inside of wall on the side opposite the fan
 
-$diskHole1_x      = 15;                         // x coordinate of the bottom-left disk hole
+$diskHole1_x      = 45;                         // x coordinate of the bottom-left disk hole
 
 $fanHolder_t      = 1.5;                        // thickness of the braces that constitute the fan holder
 
