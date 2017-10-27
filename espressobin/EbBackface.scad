@@ -4,7 +4,7 @@ module EbBackface() {
     // from left to right
     // power
     translate( [ 6, 0 ]) {
-        square( [ 9, 11 ] );
+        square( [ 9.5, 11 ] );
     }
 
     // USB power
