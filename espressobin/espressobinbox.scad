@@ -78,6 +78,7 @@ $board_wall_d4    = max( 2*$bigStandoff_r, 2*$littleStandoff_r ) + $standoff_nex
                                                 // distance between board and inside of wall on the side opposite the fan
 
 $diskHole1_x      = 45;                         // x coordinate of the bottom-left disk hole
+$diskHole1_y      =  5;                         // y coordinate of the bottom-left disk hole
 
 $fanHolder_t      = 1.5;                        // thickness of the braces that constitute the fan holder
 
@@ -92,10 +93,6 @@ $box_di           = $board_d + $board_wall_d1 + $board_wall_d3;
                                                 // box width on the inside
 $box_hi           = $bigStandoff_h + $littleStandoff_h + $slidingFit_d;
                                                 // box height on the inside
-
-$diskHole1_y      = ( $box_di - $diskHoles_dy ) / 2;
-                                                // y coordinate of the bottom-left disk hole
-
 
 // model
 
