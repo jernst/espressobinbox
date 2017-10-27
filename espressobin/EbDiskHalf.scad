@@ -42,7 +42,7 @@ module EbDiskHalf()
                         p_wall_t   = $wall_t );
             }
 
-            // make room for the DiskStandoffs that have through-holes
+            // make room for the standoffs that have through-holes
             translate( [ 0, 0, $box_hi-$wall_t ] )
             linear_extrude( 3*$wall_t ) {
                 for( p = diskStandoffs ) {
@@ -135,9 +135,9 @@ module EbDiskHalf()
             }
         }
         for( p = littleStandoffsThrough ) {
-            translate( p ) {
+            translate( [ p[0], p[1], $box_hi + $wall_t - $littleStandoff_h ] ) {
                 Standoff(
-                        height     = $littleStandoff_h + $wall_t,
+                        height     = $littleStandoff_h,
                         radius     = $littleStandoff_r,
                         holeDepth  = $littleStandoff_h,
                         holeRadius = $m3ThroughHole_r );
