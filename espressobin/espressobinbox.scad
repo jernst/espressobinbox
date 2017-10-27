@@ -89,7 +89,7 @@ $box_wi           = $board_w + $board_wall_d2 + $board_wall_d4;
                                                 // box length on the inside
 $box_di           = $board_d + $board_wall_d1 + $board_wall_d3;
                                                 // box width on the inside
-$box_hi           = $bigStandoff_h + $littleStandoff_h;
+$box_hi           = $bigStandoff_h + $littleStandoff_h + $slidingFit_d;
                                                 // box height on the inside
 
 $diskHole1_y      = ( $box_di - $diskHoles_dy ) / 2;
