@@ -8,7 +8,7 @@ use <EbFrontface.scad>
 
 showFaces     = -1; // that's the distance from the box, -1 means "don't show"
 showBoardHalf = true;
-showDiskHalf  = 50; // that's the distance the top half is raised, -1 means "don't show"
+showDiskHalf  = 25; // that's the distance the top half is raised, -1 means "don't show"
 showFan       = -1;
 
 // xxx_l:      length of xxx
@@ -57,7 +57,7 @@ $independent_d    = 1;                          // distance between two surfaces
 
 $board_wall_dz    = 5;                          // distance between bottom of board and bottom of the board half box
 $disk_wall_dz     = 5;                          // distance between bottom of disk and bottom of disk half box
-$box_ri           = 2;                          // inside curve radius of the box's corners
+$box_ri           = 4;                          // inside curve radius of the box's corners
 
 $littleStandoff_r = 4;                          // outside radius of the little standoffs
 $littleStandoff_h = 2;                          // height of the little standoffs
@@ -83,6 +83,11 @@ $fanHolder_t      = 1.5;                        // thickness of the braces that 
 
 $ventilation_w    = $fan_l;                     // width of the ventilation holes
 $ventilation_h    = $fan_l - 2;                 // height of the ventilation holes
+
+$spacer_w         = 2;                          // width of the spacers riding on the board half
+$spacer_d         = 2;                          // depth of the spacers riding on the board half
+$spacer_dzabove   = 5;                          // spacers rise this much above the top edge of the half box
+$spacer_dzbelow   = $board_wall_dz;             // spacers foundations rise this much below the top edge of the half box
 
 $fn=20;
 

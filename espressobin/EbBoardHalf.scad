@@ -1,6 +1,7 @@
 use <../lib/FanHolder.scad>
 use <../lib/HalfBox.scad>
 use <../lib/Standoff.scad>
+use <Spacer.scad>
 
 module EbBoardHalf()
 {
@@ -83,6 +84,48 @@ module EbBoardHalf()
                         radius     = $bigStandoff_r,
                         holeDepth  = $bigStandoff_h,
                         holeRadius = $m3CutHole_r );
+            }
+        }
+
+        // spacers 
+        frontSpacers_x = [ 7, 15, 28, 91, 110, 127, $box_wi - 7 - $spacer_w ];
+        backSpacers_x  = [ 7, 15,         110, 127, $box_wi - 7 - $spacer_w ];
+        leftSpacers_y  = [ 7, ($box_di - $spacer_w) / 2, $box_di - 7 - $spacer_w ];
+        rightSpacers_y = [ 7, $box_di - 7 - $spacer_w ];
+
+        for( frontSpacer_x = frontSpacers_x ) {
+            translate( [ frontSpacer_x, 0, $board_wall_dz ] ) {
+                Spacer( w       = $spacer_w,
+                        d       = $spacer_d,
+                        hAbove  = $spacer_dzabove,
+                        hBelow  = $spacer_dzbelow );
+            }
+        }
+        for( backSpacer_x = backSpacers_x ) {        
+            translate( [ backSpacer_x + $spacer_w, $box_di, $board_wall_dz ] )
+            rotate( 180, [ 0, 0, 1 ] ) {
+                Spacer( w       = $spacer_w,
+                        d       = $spacer_d,
+                        hAbove  = $spacer_dzabove,
+                        hBelow  = $spacer_dzbelow );
+            }
+        }
+        for( leftSpacer_y = leftSpacers_y ) {
+            translate( [ 0, leftSpacer_y + $spacer_w, $board_wall_dz ] )
+            rotate( -90, [ 0, 0, 1 ] ) {
+                Spacer( w       = $spacer_w,
+                        d       = $spacer_d,
+                        hAbove  = $spacer_dzabove,
+                        hBelow  = $spacer_dzbelow );
+            }
+        }
+        for( rightSpacer_y = rightSpacers_y ) {
+            translate( [ $box_wi, rightSpacer_y, $board_wall_dz ] )
+            rotate( 90, [ 0, 0, 1 ] ) {
+                Spacer( w       = $spacer_w,
+                        d       = $spacer_d,
+                        hAbove  = $spacer_dzabove,
+                        hBelow  = $spacer_dzbelow );
             }
         }
     }
