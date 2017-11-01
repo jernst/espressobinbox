@@ -89,7 +89,7 @@ module EbBoardHalf()
 
         // spacers 
         frontSpacers_x = [ 7, 15, 28, 91, 110, 127, $box_wi - 7 - $spacer_w ];
-        backSpacers_x  = [ 7, 15,         110, 127, $box_wi - 7 - $spacer_w ];
+        backSpacers_x  = [ 7,                  127, $box_wi - 7 - $spacer_w ];
         leftSpacers_y  = [ 7, ($box_di - $spacer_w) / 2, $box_di - 7 - $spacer_w ];
         rightSpacers_y = [ 7, $box_di - 7 - $spacer_w ];
 
