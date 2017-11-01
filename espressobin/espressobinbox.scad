@@ -8,7 +8,7 @@ use <EbFrontface.scad>
 
 showFaces     = -1; // that's the distance from the box, -1 means "don't show"
 showBoardHalf = true;
-showDiskHalf  = 25; // that's the distance the top half is raised, -1 means "don't show"
+showDiskHalf  = 50; // that's the distance the top half is raised, -1 means "don't show"
 showFan       = -1;
 
 // xxx_l:      length of xxx
@@ -60,7 +60,7 @@ $disk_wall_dz     = 5;                          // distance between bottom of di
 $box_ri           = 4;                          // inside curve radius of the box's corners
 
 $littleStandoff_r = 4;                          // outside radius of the little standoffs
-$littleStandoff_h = 2;                          // height of the little standoffs
+$littleStandoff_h = 5;                          // height of the little standoffs
 $bigStandoff_r    = $littleStandoff_r;          // outside radius of the big standoffs
 $bigStandoff_h    = 38;                         // height of the big standoffs
 $boardStandoff_r  = $littleStandoff_r;          // outside radius of the board standoffs
