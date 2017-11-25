@@ -32,14 +32,25 @@ module EbDiskHalf()
 
     union() {
         difference() {
-            translate( [ 0, 0, $box_hi ])
-            mirror( [ 0, 0, 1 ] ) {
-                HalfBox(
-                        p_width_i  = $box_wi,
-                        p_depth_i  = $box_di,
-                        p_height_i = $box_hi - $boardTop_z,
-                        p_radius_i = $box_ri,
-                        p_wall_t   = $wall_t );
+            union() {
+                translate( [ 0, 0, $box_hi ])
+                mirror( [ 0, 0, 1 ] ) {
+                    HalfBox(
+                            p_width_i  = $box_wi,
+                            p_depth_i  = $box_di,
+                            p_height_i = $box_hi - $boardTop_z,
+                            p_radius_i = $box_ri,
+                            p_wall_t   = $wall_t );
+                }
+                // make wall thicker around LED hole
+                translate( [ $board_wall_d4, $wallAtLed_t-$wall_t, $boardTop_z ])
+                rotate( 90, [ 1, 0, 0 ]) {
+                    linear_extrude( $wallAtLed_t ) {
+                        translate( [ 118, $spacer_dzabove + 1 + 2*$ledHole_r ]) {
+                            circle( r=2*$ledHole_r );
+                        }
+                    }
+                }
             }
 
             // make room for the standoffs that have through-holes
@@ -58,10 +69,16 @@ module EbDiskHalf()
             }
 
             // cut out openings in walls for ports
-            translate( [ $board_wall_d4, $wall_t, $boardTop_z ])
+            // $wallAtLed_t is bigger than $wall_t, so use that
+            translate( [ $board_wall_d4, $wallAtLed_t, $boardTop_z ])
             rotate( 90, [ 1, 0, 0 ]) {
-                linear_extrude( 3*$wall_t ) {
+                linear_extrude( 3*$wallAtLed_t ) {
                     EbFrontface();
+
+                    // LED hole
+                    translate( [ 118, $spacer_dzabove + 1 + 2*$ledHole_r ]) {
+                        circle( r=$ledHole_r );
+                    }
                 }
             }
 
@@ -137,7 +154,7 @@ module EbDiskHalf()
         for( p = littleStandoffsThrough ) {
             translate( [ p[0], p[1], $box_hi + $wall_t - $littleStandoff_h ] ) {
                 Standoff(
-                        height     = $littleStandoff_h,
+                        height     = $littleStandoff_h + $wall_t, // they are longer than the non-through ones
                         radius     = $littleStandoff_r,
                         holeDepth  = $littleStandoff_h,
                         holeRadius = $m3ThroughHole_r );

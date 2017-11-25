@@ -36,7 +36,7 @@ $board_sdcard_dy  =  63;      // distance from start of board to location of SD 
 $diskHoles_dx     =  77;      // distance between the screw holes on the disk along X
 $diskHoles_dy     =  62;      // distance between the screw holes on the disk along Y
 
-$fan_l            = 25;       // fan
+$fan_l            = 25.5;     // fan
 $fan_w            = 10;       // fan
 $fan_h            = $fan_l;   // fan
 
@@ -49,9 +49,12 @@ $powerCutout_h    = 11+1;     // height of the cutout for the power connector
 $m3ThroughHole_r  = 3.6/2;    // hole radius to fit M3 screws through
 $m3CutHole_r      = 2.7/2;    // radius of hole into which self-cutting M3 scews cut into --empirically
 
+$ledHole_r        = 3.1;      // hole to fit 5mm LED plus holder through
+
 // key parameters (we can change those)
 
-$wall_t           = 1;                          // wall thickness
+$wall_t           = 1.5;                        // wall thickness
+$wallAtLed_t      = 2.0;                        // wall thickness where the LED is, so the holder won't move (much)
 $slidingFit_d     = 0.3;                        // distance between two surfaces so they slide against each other
 $independent_d    = 1;                          // distance between two surfaces so printing will not impact each other
 
