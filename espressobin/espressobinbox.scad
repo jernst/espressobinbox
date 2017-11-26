@@ -49,7 +49,7 @@ $powerCutout_h    = 11+1;     // height of the cutout for the power connector
 $m3ThroughHole_r  = 3.6/2;    // hole radius to fit M3 screws through
 $m3CutHole_r      = 2.7/2;    // radius of hole into which self-cutting M3 scews cut into --empirically
 
-$ledHole_r        = 3.1;      // hole to fit 5mm LED plus holder through
+$ledHole_r        = 3.5;      // hole to fit 5mm LED plus holder through
 
 // key parameters (we can change those)
 
@@ -96,7 +96,7 @@ $fn=20;
 
 // derived values (cannot change)
 
-$boardTop_z       = $board_wall_dz + $board_t;  // z coordinate of the top edge of the board  
+$boardTop_z       = $board_wall_dz + $board_t;  // z coordinate of the top edge of the board
 $box_wi           = $board_w + $board_wall_d2 + $board_wall_d4;
                                                 // box length on the inside
 $box_di           = $board_d + $board_wall_d1 + $board_wall_d3;
