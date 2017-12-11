@@ -1,7 +1,7 @@
-use <../lib/FanHolder.scad>
-use <../lib/HalfBox.scad>
-use <../lib/Standoff.scad>
-use <../lib/VentilationHoles.scad>
+use <lib/FanHolder.scad>
+use <lib/HalfBox.scad>
+use <lib/Standoff.scad>
+use <lib/VentilationHoles.scad>
 use <EbFrontface.scad>
 use <EbBackface.scad>
 

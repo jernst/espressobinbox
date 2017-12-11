@@ -1,6 +1,6 @@
-use <../lib/FanHolder.scad>
-use <../lib/HalfBox.scad>
-use <../lib/Standoff.scad>
+use <lib/FanHolder.scad>
+use <lib/HalfBox.scad>
+use <lib/Standoff.scad>
 use <Spacer.scad>
 
 module EbBoardHalf()
