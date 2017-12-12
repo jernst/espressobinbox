@@ -154,7 +154,7 @@ module EbDiskHalf()
         for( p = littleStandoffsThrough ) {
             translate( [ p[0], p[1], $box_hi + $wall_t - $littleStandoff_h ] ) {
                 Standoff(
-                        height     = $littleStandoff_h + $wall_t, // they are longer than the non-through ones
+                        height     = $littleStandoff_h,
                         radius     = $littleStandoff_r,
                         holeDepth  = $littleStandoff_h,
                         holeRadius = $m3ThroughHole_r );
